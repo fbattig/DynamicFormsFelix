@@ -1,0 +1,78 @@
+﻿
+@model System.Data.DataTable
+@using System.Data
+
+
+
+
+@using (Html.BeginForm("PersonForm", "Person", FormMethod.Post))
+{
+    if (Model != null)
+    {
+        <form>
+            <table border="1">
+
+                <tbody>
+                    <br />
+                    @foreach (System.Data.DataColumn col in Model.Columns)
+                    {
+                        if (col.ToString() == "FieldName")
+                        {
+                            foreach (System.Data.DataRow row in Model.Rows)
+                            {
+                                string controlName = " ";
+                                <tr>
+
+                                    @foreach (var cell in row.ItemArray)
+                                    {
+
+                                    <td class="col-sm-4">
+
+
+                                        @if (cell.ToString() == "Textbox")
+                                        {
+                                            @Html.TextBox(controlName)
+                                        }
+                                        else if (cell.ToString() == "Checkbox")
+                                        {
+                                            @Html.CheckBox(controlName)
+                                        }
+                                        else if (cell.ToString() == "RadioButton")
+                                        {
+                                            @Html.RadioButton(controlName,false)
+
+                                        }
+                                        else if (cell.ToString() == "DropdownList")
+                                        {
+
+                                            <label>Select list</label>
+                                            <select id="myList">
+                                                <option value="1">one</option>
+                                                <option value="2">two</option>
+                                                <option value="3">three</option>
+                                                <option value="4">four</option>
+                                            </select>
+
+                                        }
+                                        else
+                                        {
+                                            <label>@cell.ToString()</label>
+                                            controlName = @cell.ToString();
+                                        }
+                                    </td>
+                                    }
+                                </tr>
+                            }
+                        }
+                    }
+
+
+                </tbody>
+            </table>
+        </form>
+    }
+}
+
+
+
+

@@ -1,0 +1,102 @@
+﻿
+@model System.Data.DataTable
+@using System.Data
+
+
+
+
+<div>
+    @using (Html.BeginForm("PersonForm", "Person", FormMethod.Post))
+    {
+        @*if (Model != null)
+            {
+                <table border="1">
+
+                    <tbody>
+                        @foreach (System.Data.DataColumn col in Model.Columns)
+                        {
+                            if (col.ToString() == "FieldName")
+                            {
+                                foreach (System.Data.DataRow row in Model.Rows)
+                                {
+                                    var result = ((from x in row.ItemArray select x).FirstOrDefault());
+                                    <tr>
+                                        <td>
+                                            <label> @result</label>
+                                        </td>
+                                    </tr>
+                                }
+                            }
+
+                        }
+                    </tbody>
+                </table>
+            }*@
+
+        if (Model != null)
+        {
+            <table border="1">
+
+                <tbody>
+                    <form>
+                        @foreach (System.Data.DataColumn col in Model.Columns)
+                        {
+                            if (col.ToString() == "FieldName")
+                            {
+                                foreach (System.Data.DataRow row in Model.Rows)
+                                {
+                                    <tr>
+                                        @foreach (var cell in row.ItemArray)
+                                        {
+
+                                            <td>
+                                                @if (cell.ToString() == "Textbox")
+                                                {
+                                                    <input type="text" />
+                                                }
+                                                else if (cell.ToString() == "Checkbox")
+                                                {
+                                                    <input type="checkbox" />
+                                                }
+                                                else if (cell.ToString() == "RadioButton")
+                                                {
+                                                    <input type="radio" />
+                                                }
+                                                else if (cell.ToString() == "DropdownList")
+                                                {
+
+                                                    <label>Select list</label>
+                                                    <select id="myList">
+                                                        <option value="1">one</option>
+                                                        <option value="2">two</option>
+                                                        <option value="3">three</option>
+                                                        <option value="4">four</option>
+                                                    </select>
+
+                                                }
+                                                else
+                                                {
+                                                    <label>@cell.ToString()</label>
+                                                }
+                                            </td>
+                                        }
+                                    </tr>
+                                }
+                            }
+                        }
+
+                    </form>
+                </tbody>
+            </table>
+        }
+
+
+
+    }
+
+
+
+
+
+
+</div>
